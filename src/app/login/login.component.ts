@@ -20,6 +20,7 @@ export class LoginComponent {
       console.log(data);
       if(data.bool==true){
         this.token=true;
+        localStorage.setItem("token",data.token);
       }
       else{
         alert("Invalid credentials");
@@ -29,8 +30,18 @@ export class LoginComponent {
   }
 
   onLogout(){
-    this.token=false;
+    this.http.get("http://localhost:5000/logout").subscribe((data:any)=>{
+      console.log(data);
+      if (data.bool==false){
+        alert(data.message);
+      }
+      this.token=false;
+      this.loginObj.user="";
+      this.loginObj.pass="";
+      localStorage.removeItem("token");
+    });
   }
 
 
 }
+ 
