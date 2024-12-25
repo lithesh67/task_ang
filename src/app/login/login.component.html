@@ -1,0 +1,18 @@
+<div>
+<form>
+    <label>username:</label>
+    <input type="text" name="user" [(ngModel)]="loginObj.user" placeholder="enter username">
+    <br>
+    <label>Passowrd:</label>
+    <input type="password" name="pass" [(ngModel)]="loginObj.pass" placeholder="enter password">
+    <br><br>
+</form>
+<button (click)="onLogin()" [disabled]="token">Login</button>
+<button [disabled]="!token" (click)="onLogout()">Logout</button>
+@if(token){
+   <p>Logged in successfully</p>
+}
+@else{
+    <p>You Have logged out or not logged in</p>
+}
+</div>
