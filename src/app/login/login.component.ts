@@ -16,11 +16,12 @@ export class LoginComponent {
   token=false;
   http=inject(HttpClient);
   onLogin(){
-    this.http.post("http://localhost:5000/login",this.loginObj).subscribe((data:any)=>{
+    this.http.post("http://localhost:5000/login",this.loginObj,{withCredentials:true}).subscribe((data:any)=>{
       console.log(data);
       if(data.bool==true){
         this.token=true;
         localStorage.setItem("token",data.token);
+        //document.cookie=`token=${data.token}`;
       }
       else{
         alert("Invalid credentials");
@@ -39,6 +40,8 @@ export class LoginComponent {
       this.loginObj.user="";
       this.loginObj.pass="";
       localStorage.removeItem("token");
+      document.cookie = 'token=""; max-age=0; path=/; secure; SameSite=Strict';
+
     });
   }
 
