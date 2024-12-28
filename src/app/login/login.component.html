@@ -1,18 +1,39 @@
 <div>
-<form>
+  <h1>Login page</h1>
+  <form class="form-group" #form="ngForm">
     <label>username:</label>
-    <input type="text" name="user" [(ngModel)]="loginObj.user" placeholder="enter username">
-    <br>
+    <input
+      type="text"
+      name="user"
+      [(ngModel)]="loginObj.user"
+      placeholder="enter username"
+      ngModel
+      #user="ngModel"
+      required
+    />
+    @if(user.invalid && user.touched){
+    <div class="outer">Please enter username</div>
+    }
+    <br />
     <label>Passowrd:</label>
-    <input type="password" name="pass" [(ngModel)]="loginObj.pass" placeholder="enter password">
-    <br><br>
-</form>
-<button (click)="onLogin()" [disabled]="token">Login</button>
-<button [disabled]="!token" (click)="onLogout()">Logout</button>
-@if(token){
-   <p>Logged in successfully</p>
-}
-@else{
-    <p>You Have logged out or not logged in</p>
-}
+    <input
+      type="password"
+      name="pass"
+      [(ngModel)]="loginObj.pass"
+      placeholder="enter password"
+      ngModel 
+      #pass="ngModel"
+      required
+    />
+    @if(pass.invalid && pass.touched){
+        <div class="alert">Please enter password</div>
+    }
+    <br /><br />
+  </form>
+  <button (click)="onLogin()" [disabled]="token">Login</button>
+  <button [disabled]="!token" (click)="onLogout()">Logout</button><br><br>
+  Don't have an account? <a routerLink="/register">Register here</a>
+  @if(token){
+  <p>Logged in successfully</p>
+  }
 </div>

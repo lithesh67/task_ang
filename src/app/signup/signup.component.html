@@ -1,0 +1,16 @@
+<div>
+    <h1>Register Here</h1>
+    <form>
+        <label>username</label>
+        <input type="text" placeholder="Enter username" [(ngModel)]="registerObj.user"><br><br>
+        <label>Email</label>
+        <input type="email" placeholder="Enter email" [(ngModel)]="registerObj.email"><br><br>
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" [(ngModel)]="registerObj.pass"><br><br>
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Re-Enter Passowrd"><br><br>
+        <input type="submit" value="Register" (click)="onSubmit()">
+    </form>
+    <br>
+    Already have an account? <a routerLink="/login">Login here</a>
+</div>
