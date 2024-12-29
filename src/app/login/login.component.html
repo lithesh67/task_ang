@@ -9,7 +9,7 @@
       placeholder="enter username"
       ngModel
       #user="ngModel"
-      required
+      required 
     />
     @if(user.invalid && user.touched){
     <div class="outer">Please enter username</div>
@@ -30,8 +30,7 @@
     }
     <br /><br />
   </form>
-  <button (click)="onLogin()" [disabled]="token">Login</button>
-  <button [disabled]="!token" (click)="onLogout()">Logout</button><br><br>
+  <button (click)="onLogin()" [disabled]="token">Login</button><br>
   Don't have an account? <a routerLink="/register">Register here</a>
   @if(token){
   <p>Logged in successfully</p>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpServiceService } from '../services/http-service.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class LoginComponent {
   };
   token=false;
   http:HttpServiceService=inject(HttpServiceService);
+  router=inject(Router);
   onLogin(){
     this.http.postReq(this.loginObj,"login").subscribe((data:any)=>{
       console.log(data);
@@ -24,19 +25,11 @@ export class LoginComponent {
         this.token=true;
         localStorage.setItem("token",data.token);
         //document.cookie=`token=${data.token}`;
+        this.router.navigate(['/dashboard']);
       }
-    })
-  }
-  onLogout(){
-    this.http.getReq("logout").subscribe((data:any)=>{
-      console.log(data);
-      if(data.bool==false){
-        alert("Wrong Credentials");
+      else{
+        alert("Invalid credentials");
       }
-      this.token=false;
-      localStorage.removeItem("token");
-      this.loginObj.user="";
-      this.loginObj.pass="";
     })
   }
  }
