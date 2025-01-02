@@ -19,7 +19,7 @@ export const routes: Routes = [
         component:SignupComponent
     },
     {
-        path:'dashboard',
+        path:'dashboard/:id',
         component:DashboardComponent
     }
 ];

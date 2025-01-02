@@ -2,6 +2,34 @@
    <p>Authenticating the user.....</p>
 }
 @else{
-    <p>dashboard works!</p>
-    <button (click)="onLogout()">Logout</button>
+    <form enctype="multipart/form-data">
+        <label>Course name</label>
+        <input type="text" name="course-name" placeholder="Enter course name" [(ngModel)]="formObj.course_name"><br><br>
+        <label>Course duration</label>
+        <input type="text" name="duration" placeholder="Enter course duration" [(ngModel)]="formObj.duration"><br><br>
+        <label>Instructor name</label>
+        <input type="text" name="instructor" placeholder="Enter instructor name " [(ngModel)]="formObj.instructor"><br><br>
+        <label>Course Description</label>
+        <textarea rows="5"  name="desc" cols="60" placeholder="Enter course description" [(ngModel)]="formObj.desc"></textarea><br><br>
+        <label>Course profile </label>
+        <input type="file" name="image" accept="image/*" (change)="selectFiles($event)"><br><br>
+        <label>Course documents</label>
+        <input type="file" name="docs" multiple (change)="selectFiles($event)" accept=".pdf,.docx,.doc" ><br><br>
+        <label>Video file</label>
+        <input type="file" name="video" accept="video/*" (change)="selectFiles($event)"><br><br>
+        <button type="button" (click)="onSubmit()">submit</button>
+    </form>
+    <br><br>   
+    <button (click)="onLogout()">Logout</button> 
+    <h2>Course List</h2>
+    @for (course of courseList; track course.course_id){
+        <div>
+            <h3>{{course.course_name}}</h3>
+            <p>Instaructor: {{course.instructor}}</p>
+            <p>Duration: {{course.duration}}</p>
+            <p>Description: {{course.description}}</p>
+            <img [src]="course.file_path" alt="course_image" width="100" height="100">
+        </div>
+    }
+
 }
