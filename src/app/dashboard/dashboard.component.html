@@ -2,22 +2,44 @@
    <p>Authenticating the user.....</p>
 }
 @else{
-    <form enctype="multipart/form-data">
+    <h2>Create course</h2>
+    <form enctype="multipart/form-data" [formGroup]="course_form" (ngSubmit)="onSubmit()">
         <label>Course name</label>
-        <input type="text" name="course-name" placeholder="Enter course name" [(ngModel)]="formObj.course_name"><br><br>
+        <input type="text" name="course_name" placeholder="Enter course name" formControlName="course_name" ><br><br>
+        @if(errors('course_name')){
+            <div>This field is required</div>
+        }
         <label>Course duration</label>
-        <input type="text" name="duration" placeholder="Enter course duration" [(ngModel)]="formObj.duration"><br><br>
+        <input type="text" name="duration" placeholder="Enter course duration" formControlName="duration"><br><br>
+        @if(errors('duration')){
+            <div>This field is required</div>
+        }
         <label>Instructor name</label>
-        <input type="text" name="instructor" placeholder="Enter instructor name " [(ngModel)]="formObj.instructor"><br><br>
+        <input type="text" name="instructor" placeholder="Enter instructor name " formControlName="instructor"><br><br>
+        @if(errors('instructor')){
+            <div>This field is required</div>
+        }
         <label>Course Description</label>
-        <textarea rows="5"  name="desc" cols="60" placeholder="Enter course description" [(ngModel)]="formObj.desc"></textarea><br><br>
+        <textarea rows="5"  name="desc" cols="60" placeholder="Enter course description" formControlName="desc" ></textarea><br><br>
+        @if(errors('desc')){
+            <div>This field is required</div>
+        }
         <label>Course profile </label>
-        <input type="file" name="image" accept="image/*" (change)="selectFiles($event)"><br><br>
+        <input type="file" name="image" accept="image/*" (change)="selectFiles($event)" formControlName="image"><br><br>
+        @if(errors('image')){
+            <div>Please upload an image</div>
+        }
         <label>Course documents</label>
-        <input type="file" name="docs" multiple (change)="selectFiles($event)" accept=".pdf,.docx,.doc" ><br><br>
+        <input type="file" name="docs" multiple (change)="selectFiles($event)" accept=".pdf,.docx,.doc" formControlName="docs"><br><br>
+        @if(errors('docs')){
+            <div>Please upload course documents</div>
+        }
         <label>Video file</label>
-        <input type="file" name="video" accept="video/*" (change)="selectFiles($event)"><br><br>
-        <button type="button" (click)="onSubmit()">submit</button>
+        <input type="file" name="video" accept="video/*" (change)="selectFiles($event)" formControlName="video"><br><br>
+        @if(errors('video')){
+            <div>Please upload a video</div>
+        }
+        <input type="submit" [disabled]="course_form.invalid">
     </form>
     <br><br>   
     <button (click)="onLogout()">Logout</button> 
@@ -25,11 +47,11 @@
     @for (course of courseList; track course.course_id){
         <div>
             <h3>{{course.course_name}}</h3>
-            <p>Instaructor: {{course.instructor}}</p>
+            <p>Instructor: {{course.instructor}}</p>
             <p>Duration: {{course.duration}}</p>
             <p>Description: {{course.description}}</p>
             <img [src]="course.file_path" alt="course_image" width="100" height="100">
+            <button (click)="go_to_course(course.course_id)">Go to Course</button>
         </div>
     }
-
 }

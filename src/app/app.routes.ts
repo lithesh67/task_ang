@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,10 @@ export const routes: Routes = [
     },
     {
         path:'dashboard/:id',
-        component:DashboardComponent
+        component:DashboardComponent,
+    },
+    {
+        path:'dashboard/:id/courseDetails/:course_id',
+        component:CourseDetailsComponent
     }
 ];
