@@ -69,8 +69,14 @@ export class DashboardComponent implements OnInit {
     this.files.forEach((file)=>{
        formData.append('files',file);
     });
-    
     this.http.postReq(formData,'createCourse').subscribe((resp:any)=>{
+      if (resp.bool==true){
+        alert("Course created successfully");
+        this.course_form.reset();
+      }
+      else{
+        alert("some error has occoured");
+      }
       console.log(resp.message);
     });
   }

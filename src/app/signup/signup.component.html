@@ -1,15 +1,41 @@
 <div>
     <h1>Register Here</h1>
-    <form>
+    <form [formGroup]="signup_form" (ngSubmit)="onSubmit()">
         <label>username</label>
-        <input type="text" name="user" placeholder="Enter username"  [(ngModel)]="registerObj.user"><br><br>
+        <input type="text" name="user" placeholder="Enter username"  formControlName="username"><br><br>
+        @if( signup_form.get('username')?.invalid && signup_form.get('username')?.touched){
+           <p class="invalid"> This is a required field</p>
+        }
         <label>Email</label>
-        <input type="email" name="email" placeholder="Enter email" [(ngModel)]="registerObj.email"><br><br>
+        <input type="email" name="email" placeholder="Enter email" formControlName="email"><br><br>
+        @if(signup_form.get('email')?.invalid && signup_form.get('email')?.touched ){
+          @if(signup_form.get('email')?.errors?.['pattern'] ){
+             <p class="invalid">Please enter valid email address</p>
+          }
+          @else {
+             <p class="invalid">This field is required</p>
+          }
+        }
         <label>Password</label>
-        <input type="password" name="pass" placeholder="Enter password" [(ngModel)]="registerObj.pass"><br><br>
+        <input type="password" name="pass" placeholder="Enter password" formControlName="password"><br><br>
+        @if(signup_form.get('password')?.invalid && signup_form.get('password')?.errors?.['pattern']){
+            <p class="invalid">The password must contain atleast one uppercase letter, one lowercase letter, a number, a special character and 6 characters long</p>
+         }
+         @else if(signup_form.get('password')?.invalid && signup_form.get('password')?.touched){
+           <p class="invalid">This field is required</p>
+          }
         <label>Confirm Password</label>
-        <input type="password" name="cpass" placeholder="Re-Enter Passowrd"><br><br> 
-        <input type="submit" value="Register" (click)="onSubmit()">
+        <input type="password" name="cpass" placeholder="Re-Enter Passowrd" formControlName="cpass"><br><br> 
+        @if(signup_form.get('cpass')?.touched && signup_form.get('cpass')?.invalid){
+            @if(signup_form.get('cpass')?.errors?.['required'])
+            {
+               <p class="invalid">This field is required</p>
+            }
+            @else{
+               <p class="invalid">Passwords do not match</p>
+            }
+        }
+        <input type="submit" [disabled]="signup_form.invalid"  value="Register">
     </form>
     <br>
     Already have an account? <a routerLink="/login">Login here</a>
